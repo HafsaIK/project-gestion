@@ -45,7 +45,11 @@
     </div><!--//col-auto-->
 </div><!--//row-->
 
-
+@if (Session::get('success_message'))
+    <div class="alert alert-success">
+        {{Session::get('success_message')}}
+    </div>
+@endif
 
 <div class="tab-content" id="orders-table-tab-content">
     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -56,6 +60,7 @@
                         <thead>
                             <tr>
                                 <th class="cell">#</th>
+                                <th class="cell">Departement</th>
                                 <th class="cell">Nom</th>
                                 <th class="cell">Prenom</th>
                                 <th class="cell">Email</th>
@@ -69,11 +74,16 @@
                             @forelse ($employers as $employer )
                             <tr>
                                 <td class="cell">{{$employer->id}}</td>
-                                <td class="cell"><span class="truncate">{{$employer->nom}}</span></td>
+                                <td class="cell">{{$employer->departement->name}}</td>
+                                <td class="cell">{{$employer->nom}}</td>
                                 <td class="cell">{{$employer->prenom}}</td>
                                 <td class="cell"><span>{{$employer->email}}</span></td>
                                 <td class="cell">{{$employer->contact}}</td>
-                                <td class="cell"><span class="badge bg-success">{{$employer->montan_journalier * 30}}</span></td>
+                                <td class="cell"><span class="badge bg-success">{{$employer->montan_journalier * 30}} DH</span></td>
+                                <td class="cell">
+                                    <a class="btn-sm app-btn-secondary" href="{{route('employers.edit', $employer->id)}}">Editer</a>
+                                    <a class="btn-sm app-btn-secondary" href="{{route('employers.delete',$employer->id)}}">Supprimer </a>
+                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -87,7 +97,7 @@
                 </div><!--//table-responsive-->
                
             </div><!--//app-card-body-->		
-        </div><!--//app-card-->
+        </div><!--//appiard-->
 
         <nav class="app-pagination"> 
             {{$employers->links()}}
