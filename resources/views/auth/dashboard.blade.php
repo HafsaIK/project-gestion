@@ -3,7 +3,16 @@
 @section('content')
 
 <h1 class="app-page-title">Dashboard</h1>
-			    
+	
+<div class="row mt-2 mb-2 p-2">
+
+    @if ($paymentNotification)
+        <div class="alert alert-warning"><b>Attention: </b>{{$paymentNotification}}</div>
+    @endif
+
+</div>
+
+
 <div class="row g-4 mb-4">
     <div class="col-6 col-lg-3">
         <div class="app-card app-card-stat shadow-sm h-100">
