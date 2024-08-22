@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationController;
@@ -41,5 +42,13 @@ Route::middleware('auth')->group(function(){
         //Route d'actions
         Route::post('/store',[ConfigurationController::class,'store'])->name('configurations.store') ;
         Route::get('/delete/{configuration}',[ConfigurationController::class,'delete'])->name('configurations.delete') ;
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+        Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
+        Route::delete('/delete/{user}', [AdminController::class, 'delete'])->name('admin.delete');
     });
 });
