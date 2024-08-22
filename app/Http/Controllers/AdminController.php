@@ -16,14 +16,21 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+
+    public function index()
+    {
+        $admins = User::paginate(10);
+        return view("admins/index", compact("admins"));
+    }
+
     public function create()
     {
-        return view("admin/create");
+        return view("admins/create");
     }
 
     public function edit(User $user)
     {
-        return view("admin/edit", compact("user"));
+        return view("admins/edit", compact("user"));
     }
 
     public function store(storeAdminRequest $request)
@@ -35,7 +42,7 @@ class AdminController extends Controller
 
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->name = Hash::make('default');
+            $user->password = Hash::make('default');
 
             $user->save();
 
@@ -59,6 +66,9 @@ class AdminController extends Controller
 
                     Notification::route('mail', $user->email)->notify(new SendEmailAdmainAfterRegistrationNotification($code, $user->email));
 
+                    //Rediriger l'utilisateur vers un URL
+
+                    return redirect()->route('administrateurs.index')->with('success_message','Administrateur ajouté');
                 } catch (Exception $e) {
                     dd($e); 
                     throw new Exception("Une erreur est servenue lors de l'envoie du mail");
@@ -68,8 +78,7 @@ class AdminController extends Controller
 
         } catch (Exception $e) {
  
-            //dd($e)
-
+            dd($e);
             throw new Exception('Une erreur est servenue lors de la création de cet adminidtrateur');
         
         }

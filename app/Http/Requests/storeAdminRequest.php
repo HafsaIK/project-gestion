@@ -23,8 +23,7 @@ class storeAdminRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'email'=> 'required|email|unique:users,email',
-            'password'=> 'required',
+            'email'=> 'required|email|unique:users,email'
         ];
     }
 
@@ -34,8 +33,7 @@ class storeAdminRequest extends FormRequest
             'name.required'=> 'Le nom de l\'administrateur est requis',
             'email.required'=> 'Le mail est requis',
             'email.email'=> 'le mail n\'est pas valide',
-            'email.unique'=> 'Cette adreese mail lié a un compte',
-            'password.required'=> 'Le mot de passe est requis'
+            'email.unique'=> 'Cette adreese mail lié a un compte'
         ];
     }
 }
