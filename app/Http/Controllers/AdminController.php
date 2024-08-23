@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeAdminRequest;
+use App\Http\Requests\submitDefineAccessRequest;
 use App\Http\Requests\updateAdminRequest;
 use App\Models\ResetCodePassword;
 use App\Models\User;
 use App\Notifications\SendEmailAdmainAfterRegistrationNotification;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Request;
@@ -110,6 +112,40 @@ class AdminController extends Controller
             //dd($e)
             throw new Exception("Une erreur est servenue lors de la suppression des informations de l'utilisateur");
         
+        }
+    }
+
+    public function defineAccess($email)
+    {
+
+        $checkUserExist = User::where("email", $email)->first();
+        
+        if($checkUserExist){
+
+            return view('auth.validate-account', compact('email'));
+
+        }else{
+            //rediriger sur une route 404
+            //return redirect()->route("login");
+        }
+    }
+
+    public function SubmitDefineAccess(submitDefineAccessRequest $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if($user){
+                $user->password = Hash::make($request->password);
+                $user->email_verified_at = Carbon::now();
+                $user->update();
+
+                return redirect()->route('login')->with('success_message','Vos acces correctement défini');
+            }else{
+            //rediriger sur une route 404
+        }
+            
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 }

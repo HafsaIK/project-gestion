@@ -54,8 +54,20 @@ class DepartementController extends Controller
 
         //Supprimer un departement
         try{ 
+
+            $employersCount = $departement->employers()->count();
+            if ($employersCount > 0) {
+                // Rediriger avec un message d'erreur si des employés sont associés
+                return redirect()->route("departements.index")->with("error_message", "Impossible de supprimer ce département car il y a $employersCount employé(s) qui y sont associé(s).");
+            }
+    
+            // Supprimer le département si aucun employé n'est associé
             $departement->delete();
-            return redirect()->route("departements.index")->with("success_message","Département supprimé");
+    
+            return redirect()->route("departements.index")->with("success_message", "Département supprimé avec succès.");
+        
+           // $departement->delete();
+           // return redirect()->route("departements.index")->with("success_message","Département supprimé");
         }
         catch(Exception $e){
             dd($e);

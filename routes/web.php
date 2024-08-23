@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[AuthController::class,'login'])->name('login');
 Route::post('/',[AuthController::class,'handleLogin'])->name('handleLogin');
 
+Route::get('/validate-account/{email}',[AdminController::class,'defineAccess']);
+Route::post('/validate-account/{email}',[AdminController::class,'SubmitDefineAccess'])->name('SubmitDefineAccess');
+
 //Route sécurisé
 
 Route::middleware('auth')->group(function(){
@@ -51,5 +54,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/edit/{administrateur}', [AdminController::class, 'edit'])->name('administrateurs.edit');
         Route::put('/update/{administrateur}', [AdminController::class, 'update'])->name('administrateurs.update');
         Route::get('/delete/{administrateur}', [AdminController::class, 'delete'])->name('administrateurs.delete');
+
     });
+
+
+
 });
