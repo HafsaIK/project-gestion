@@ -15,7 +15,7 @@
     @method('POST')
 
     <div class="box">
-        <h1>définissez vos acces</h1>
+        <h1>Définissez vos acces</h1>
         @if (Session::get('error_msg'))
             <b style="font-size: 10px; color:rgb(185,81,81)">{{Session::get('error_msg')}}</b>
         @endif
@@ -23,6 +23,16 @@
         <div class="form-group">
             <label for="">Email</label>
             <input type="text" name="email" class="email" value="{{$email}}" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="">Code</label>
+            <input type="text" name="code" class="email" value="{{old('code')}}" />
+        
+            @error('code')
+                <span class="text text-danger">{{$message}}</span>
+            @enderror
+
         </div>
 
         <div class="form-group">
@@ -56,7 +66,14 @@
 
 
 <style>
+    .form-group{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
     .text-danger{
-        color:rgb(185,81,81)
+        color:rgb(185,81,81)!important;
     }
 </style>

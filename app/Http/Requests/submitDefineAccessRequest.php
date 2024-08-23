@@ -22,6 +22,7 @@ class submitDefineAccessRequest extends FormRequest
     public function rules(): array
     {
         return [
+            "code"=> "required|exists:reset_code_passwords,code",
             'password'=>'required|same:confirm_password',
             'confirm_password'=>'required|same:password'
 
@@ -30,6 +31,8 @@ class submitDefineAccessRequest extends FormRequest
 
     public function messages(){
         return [
+            'code.required'=> 'Le code est requis',
+            'code.exists'=> 'Le code n\'est pas valide. Consultez votre boite email',
             'password.same' => 'Les mots de passe ne correspondent pas',
             'confirm_password.same'=> 'Les mots de passe ne correspondent pas'
         ];

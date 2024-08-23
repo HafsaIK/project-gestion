@@ -139,6 +139,14 @@ class AdminController extends Controller
                 $user->email_verified_at = Carbon::now();
                 $user->update();
 
+                //Si la mise a jour fait correctement
+                if($user){
+                    $existingCode =  ResetCodePassword::where('email', $user->email)->count();
+                }
+
+                if($existingCode >= 1){
+                    ResetCodePassword::where('email', $user->email)->delete();
+                }
                 return redirect()->route('login')->with('success_message','Vos acces correctement défini');
             }else{
             //rediriger sur une route 404
