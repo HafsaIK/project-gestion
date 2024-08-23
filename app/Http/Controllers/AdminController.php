@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\Notification;
 
 use Illuminate\Support\Facades\Hash;
@@ -106,6 +107,18 @@ class AdminController extends Controller
         try {
 
             //logique de suppression de compte
+            
+            $connectedAdminId = Auth::user()->id;
+
+            //L'admin connecté ne puisse pas supprimé son compte
+
+            if($connectedAdminId != $user->id){
+                $user->delete();
+                return redirect()->back()->with("success_message","L'administrateur a été retiré");
+            }else{
+                return redirect()->back()->with("error_message","Vous ne pouvez pas supprimer votre compte administrateur");
+
+            }
 
         } catch (Exception $e) {
 

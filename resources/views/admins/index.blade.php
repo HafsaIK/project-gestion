@@ -51,6 +51,13 @@
     </div>
 @endif
 
+@if (Session::get('error_message'))
+    <div class="alert alert-danger">
+        {{Session::get('error_message')}}
+    </div>
+@endif
+
+
 <div class="tab-content" id="orders-table-tab-content">
     <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
         <div class="app-card app-card-orders-table shadow-sm mb-5">
@@ -60,12 +67,8 @@
                         <thead>
                             <tr>
                                 <th class="cell">#</th>
-                                <th class="cell">Departement</th>
-                                <th class="cell">Nom</th>
-                                <th class="cell">Prenom</th>
+                                <th class="cell">Nom Complet</th>
                                 <th class="cell">Email</th>
-                                <th class="cell">Contact</th>
-                                <th class="cell">Salaire</th>
                                 <th class="cell"></th>
                             </tr>
                         </thead>
@@ -74,10 +77,13 @@
                             @forelse ($admins as $admin )
                             <tr>
                                 <td class="cell">{{$admin->id}}</td>
+                                <td class="cell">{{$admin->name}}</td>
+                                <td class="cell">{{$admin->email}}</td>
+
                                 <td class="cell">
                                 
-                                    <a class="btn-sm app-btn-secondary" href="{{route('administrateurs.edit', $admin->id)}}">Editer</a>
                                     <a class="btn-sm app-btn-secondary" href="{{route('administrateurs.delete',$admin->id)}}">Supprimer </a>
+
                                 </td>
                             </tr>
                             @empty
