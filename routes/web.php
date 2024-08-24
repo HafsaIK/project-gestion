@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[AuthController::class,'login'])->name('login');
@@ -53,6 +54,11 @@ Route::middleware('auth')->group(function(){
         Route::post('/store', [AdminController::class, 'store'])->name('administrateurs.store');
         Route::get('/delete/{user}', [AdminController::class, 'delete'])->name('administrateurs.delete');
 
+    });
+
+    Route::prefix('payments')->group(function () {
+        Route::get('/',[PaymentController::class, 'index'])->name('payments.index') ;
+    
     });
 
 
