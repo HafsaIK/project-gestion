@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('reference');
-            $table->unsignedBigInteger('employer_i');
-            $table->foreign('employer_i')->references('id')->on('employers');
+            $table->unsignedBigInteger('employer_id');
+            $table->foreign('employer_id')->references('id')->on('employers');
             $table->string('amount');
             $table->dateTime('launch_date');
             $table->dateTime('done_time');
