@@ -6,8 +6,11 @@ use App\Models\Configuration;
 use App\Models\Employer;
 use App\Models\Payment;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\PDF;
+
 
 class PaymentController extends Controller
 {
@@ -31,8 +34,12 @@ class PaymentController extends Controller
         return view("paiments.index", compact("payments" ,"isPaymentDay"));
     }
 
-    public function initPayment()
+    public function effectuerPaiments()
     {
+
+        //Verifier que nous somme a la date de paiement avant d'executer le code ci dessous
+
+        //Table de mappage des mois anglais vers les mois en francais
         $monthMapping = [
             'JANURY'=>'JANVIER',
             'FEBRUARY'=>'FEVRIER',
@@ -93,5 +100,26 @@ class PaymentController extends Controller
 
         return redirect()->back()->with('success_message','Paiement des employers effectuer pour le mois de '. $currentMonthInFrench);
 
+    }
+
+    public function download_invoice(Payment $payment){
+
+        try {
+            
+            $fullPaymentInfo = Payment::with('employer')->find($payment->id);
+
+            //Generer le PDF
+
+            //return view('paiments.facture' , compact('fullPaymentInfo'));
+
+            $pdf = app(PDF::class); // Résout le service PDF à partir du conteneur
+
+            $pdf->loadView('paiments.facture', compact('fullPaymentInfo')); // Charge une vue pour générer le PDF
+
+            return $pdf->download('facture_'. $fullPaymentInfo->employer->nom.'.pdf' );
+
+        } catch (Exception $e) {
+            throw new Exception("Une erreur est servenue lors du téléchargement de la facture");
+        }
     }
 }

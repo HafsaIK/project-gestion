@@ -31,6 +31,8 @@
                           
                     </select>
                 </div>
+                @if ($isPaymentDay)
+
                 <div class="col-auto">						    
                     <a class="btn app-btn-secondary" href="{{route('payments.init')}}">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -40,6 +42,9 @@
                         Lancer les paiements
                     </a>
                 </div>
+
+                @endif
+                
             </div><!--//row-->
         </div><!--//table-utilities-->
     </div><!--//col-auto-->
@@ -79,7 +84,6 @@
                                 <th class="cell">Mois</th>
                                 <th class="cell">Année</th>
                                 <th class="cell">Statut</th>
-
                                 <th class="cell"></th>
                             </tr>
                         </thead>
@@ -97,16 +101,15 @@
                                     <button class="btn btn-success btn-sm">{{$payment->status}}</button>
                                 </td>
 
-
-                                @if ($isPaymentDay)
-
-                                    <td class="cell">
+                                <td class="cell">
                                 
-                                        <a class="btn-sm app-btn-secondary" href="{{route('administrateurs.delete',$payment->id)}}">Supprimer </a>
+                                        <a href="{{route('payments.download',$payment->id)}}">
 
-                                    </td>
+                                            <i class="fa fa-download"></i>
 
-                                @endif
+                                        </a>
+                                </td>
+
 
                                 
                             </tr>
