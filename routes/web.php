@@ -7,6 +7,7 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StagaireController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[AuthController::class,'login'])->name('login');
@@ -63,6 +64,14 @@ Route::middleware('auth')->group(function(){
     
     });
 
+    Route::prefix('stagaires')->group(function(){
+        Route::get('/',[StagaireController::class,'index'])->name('stagaires.index') ;
+        Route::get('/create',[StagaireController::class,'create'])->name('stagaires.create') ;
+        Route::get('/edit/{stagaire}',[StagaireController::class,'edit'])->name('stagaires.edit') ;
+        Route::post('/store',[StagaireController::class,'store'])->name('stagaires.store') ; 
+        Route::put('/update/{stagaire}',[StagaireController::class,'update'])->name('stagaires.update');
+        Route::get('/delete/{stagaire}',[StagaireController::class,'delete'])->name('stagaires.delete') ;
+    });
 
 
 });

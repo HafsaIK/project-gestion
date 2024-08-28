@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEmployerRequest extends FormRequest
+class UpdateStagaireRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class UpdateEmployerRequest extends FormRequest
             'prenom'=> 'required|string',
             'email'=> 'required',
             'contact'=> 'required',
-            'montan_journalier'=> 'required'
+            'duree_stage'=> 'required'
         ];
     }
 
@@ -37,7 +37,7 @@ class UpdateEmployerRequest extends FormRequest
             'contact.required'=> 'Le numero de teléphone est requis',
             'nom.required' => 'Le nom est requis',
             'prenom.required' => 'Le prenom est requis',
-            'montan_journalier.required' => 'Le montant journalier est requis'
+            'duree_stage.required' => 'La duree du stage est requis'
 
 
         ];

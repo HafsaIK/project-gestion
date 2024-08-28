@@ -38,8 +38,8 @@ class StoreEmployeRequest extends FormRequest
             'contact.required'=> 'Le numero de teléphone est requis',
             'contact.unique'=> 'Le numero de teléphone est déja pris',
             'nom.required' => 'Le nom est requis',
-            'prenom.required' => 'Le nom est requis',
-            'montan_journalier.required' => 'Le nom est requis'
+            'prenom.required' => 'Le prenom est requis',
+            'montan_journalier.required' => 'Le montant jornalier est requis'
         ];
 
     }

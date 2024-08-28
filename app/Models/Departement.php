@@ -13,4 +13,9 @@ class Departement extends Model
     {
         return $this->hasMany(Employer::class, 'departement_id');
     }
+
+    public function stagaires()
+    {
+        return $this->hasMany(Stagaire::class, 'departement_id');
+    }
 }
