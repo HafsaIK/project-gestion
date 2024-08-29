@@ -16,6 +16,12 @@ Route::post('/',[AuthController::class,'handleLogin'])->name('handleLogin');
 Route::get('/validate-account/{email}',[AdminController::class,'defineAccess']);
 Route::post('/validate-account/{email}',[AdminController::class,'SubmitDefineAccess'])->name('SubmitDefineAccess');
 
+Route::get('/validate-account-emp/{email}',[EmployerController::class,'defineAccessEmp']);
+Route::post('/validate-account-emp/{email}',[EmployerController::class,'SubmitDefineAccessEmp'])->name('SubmitDefineAccessEmp');
+
+
+
+
 //Route sécurisé
 
 Route::middleware('auth')->group(function(){
