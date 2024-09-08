@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthEmployerController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployerController;
@@ -19,7 +20,8 @@ Route::post('/validate-account/{email}',[AdminController::class,'SubmitDefineAcc
 Route::get('/validate-account-emp/{email}',[EmployerController::class,'defineAccessEmp']);
 Route::post('/validate-account-emp/{email}',[EmployerController::class,'SubmitDefineAccessEmp'])->name('SubmitDefineAccessEmp');
 
-
+Route::get('/login',[AuthEmployerController::class,'loginEmp'])->name('loginEmp');
+Route::post('/login',[AuthEmployerController::class,'handleLoginEmp'])->name('handleLoginEmp');
 
 
 //Route sécurisé

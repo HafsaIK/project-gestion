@@ -15,7 +15,7 @@
     @method('POST')
 
     <div class="box">
-        <h1>Définissez vos acces</h1>
+        <h1>Définissez vos acces emp</h1>
         @if (Session::get('error_msg'))
             <b style="font-size: 10px; color:rgb(185,81,81)">{{Session::get('error_msg')}}</b>
         @endif
